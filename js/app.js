@@ -120,7 +120,7 @@ function agregarPlatillo(producto) {
     let { pedido } = cliente;
     // Revisar que la cantidad sea mayor a 0
 
-    if(producto.cantidad > 0) {
+    if(producto.cantidad > 0 ) {
 
         // Comprueba si el elemento ya existe en el array
         if( pedido.some( articulo => articulo.id === producto.id ) ) {
@@ -137,8 +137,6 @@ function agregarPlatillo(producto) {
             // El articulo no existe, lo agregamos al array de pedido
             cliente.pedido = [...pedido, producto];
         }
-
-        cliente.pedido = [...pedido, producto];
     } else {
         // Eliminar elementos cuando la cantida es 0
         const resultado = pedido.filter( articulo => articulo.id !== producto.id );
@@ -148,10 +146,14 @@ function agregarPlatillo(producto) {
     // limpiar el codigo HTML previo
      limpiarHTML();
 
+    if( cliente.pedido.length ) {
+        // Mostrar el Resumen
+        actualizarResumen();
+    } else {
+        mensajePedidoVacio();
+    }
 
-
-    // Mostrar el Resumen
-    actualizarResumen();
+    
 }
 
 function actualizarResumen() {
@@ -291,6 +293,27 @@ function eliminarProducto(id) {
     // limpiar el codigo HTML previo
     limpiarHTML();
 
-    // Mostrar el Resumen
-    actualizarResumen();
+    if( cliente.pedido.length ) {
+        // Mostrar el Resumen
+        actualizarResumen();
+    } else {
+        mensajePedidoVacio();
+    }
+
+    // El producto se elimino por lo tanto regresamos la cantidad a 0 en el formulario
+
+    const productoEliminado = `#producto-${id}`;
+    const inputElimina = document.querySelector(productoEliminado);
+    inputElimina.value = 0;
+
+}
+
+function mensajePedidoVacio() {
+    const contenido = document.querySelector('#resumen .contenido');
+
+    const texto = document.createElement('P');
+    texto.classList.add('text-center');
+    texto.textContent = 'Añade los elementos del pedido';
+
+    contenido.appendChild(texto);
 }
