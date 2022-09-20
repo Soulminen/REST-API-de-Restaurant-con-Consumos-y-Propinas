@@ -42,10 +42,23 @@ function guardarCliente() {
     
     mostrarSecciones();
 
+    obtenerPlatillos();
+
 }
 
 function mostrarSecciones() {
     const seccionesOcultas = document.querySelectorAll('.d-none');
     seccionesOcultas.forEach(seccion => seccion.classList.remove('d-none'));
+}
+
+function obtenerPlatillos() {
+
+    const url = 'http://localhost:3000/platillos';
+
+    fetch(url)
+        .then( respuesta => respuesta.json() )
+        .then( resultado => console.log(resultado))
+
+
 }
 
