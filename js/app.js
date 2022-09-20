@@ -30,11 +30,15 @@ function guardarCliente() {
                 alerta.remove();
             }, 3000);
         } 
-
+         
         return;
     } 
         
-    
+    cliente = { ...cliente, mesa, hora };
+
+    const modalFormulario = document.querySelector('#formulario');
+    const modalBootstrap = bootstrap.Modal.getInstance(modalFormulario);
+    modalBootstrap.hide();
     
 
 
